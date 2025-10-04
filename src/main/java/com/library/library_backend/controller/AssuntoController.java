@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -81,5 +82,20 @@ public ResponseEntity<AssuntoGetDTO> post(@RequestBody @Valid AssuntoPostDTO bod
 		return ret;
 	}
 
+
+@DeleteMapping("/{id}")
+@Transactional
+public ResponseEntity<?> delete(@PathVariable("id") int id ){
+	ResponseEntity<Assunto> ret = ResponseEntity.notFound().build();
+	Optional<Assunto> search = repository.findById(id);
+	if(search.isPresent()){
+		Assunto item = search.get();
+		repository.delete(item);
+		ret = ResponseEntity.ok().build();
+	} else {
+		System.out.println("Assunto não encontrado");
+	}
+	return ret;
+}
 
 }
