@@ -1,4 +1,4 @@
-package com.library.library_backend.validation.ValidationHandler.java;
+package com.library.library_backend.validation;
 
 
 import java.util.ArrayList;
