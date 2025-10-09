@@ -22,13 +22,13 @@ public class EditoraGetDTO {
     public EditoraGetDTO(Editora editora){
         this.id = editora.getId();
         this.nome = editora.getNome();
-        this.cnpj = editora.getCNPJ();
+        this.cnpj = editora.getCnpj();
         this.logradouro = editora.getLogradouro();
         this.numero = editora.getNumero();
         this.bairro = editora.getBairro();
         this.municipio = editora.getMunicipio();
         this.uf = editora.getUf();
-        this.cep = editora.getCEP();
+        this.cep = editora.getCep();
         this.telefone = editora.getTelefone();
         this.gerente = editora.getGerente();
     }

@@ -13,7 +13,6 @@ import jakarta.persistence.OneToMany;
 
 @Entity
 public class Editora {
-
     @OneToMany(mappedBy = "editora")
     @JsonBackReference
     private Set<Livro> livros = new HashSet<>();
@@ -48,11 +47,11 @@ public class Editora {
         this.nome = nome;
     }
 
-    public String getCNPJ() {
+    public String getCnpj() {
         return cnpj;
     }
     
-    public void setCNPJ(String cnpj) {
+    public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
     }
 
@@ -96,11 +95,11 @@ public class Editora {
         this.uf = uf;
     }
 
-    public String getCEP() {
+    public String getCep() {
         return cep;
     }
 
-    public void setCEP(String cep) {
+    public void setCep(String cep) {
         this.cep = cep;
     }
 
@@ -127,8 +126,6 @@ public class Editora {
     public void setLivros(Set<Livro> livros){
         this.livros = livros;
     }
-
-
 
     
 }
