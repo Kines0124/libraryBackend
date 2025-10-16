@@ -4,8 +4,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import com.library.library_backend.dto.LivroTotalDTO;
 import com.library.library_backend.model.Assunto;
 import com.library.library_backend.model.Editora;
 import com.library.library_backend.model.Livro;
@@ -17,4 +19,9 @@ public interface LivroRepository extends JpaRepository <Livro, Integer>{
     List<Livro>     findByAssuntos(Assunto assunto);
     List<Livro>     findByEditora(Editora editora);
     Optional<Livro> findByIsbn(String isbn);
+
+    @Query(value = "SELECT livro.titulo, livro.autor, (livro.quantidade * livro.preco) AS preco_total "
+                    + "FROM livro", nativeQuery = true)
+    List<LivroTotalDTO> total();
+
 }

@@ -19,6 +19,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.library.library_backend.dto.LivroGetDTO;
 import com.library.library_backend.dto.LivroPostDTO;
 import com.library.library_backend.dto.LivroPutDTO;
+import com.library.library_backend.dto.LivroTotalDTO;
 import com.library.library_backend.model.Livro;
 import com.library.library_backend.repository.AssuntoRepository;
 import com.library.library_backend.repository.EditoraRepository;
@@ -117,6 +118,12 @@ public class LivroController {
             System.out.println("Livro não encontrado");
         }
         return ret;
+    }
+
+    @GetMapping("/total")
+    public List<LivroTotalDTO> total (){
+        List<LivroTotalDTO> l = repository.total();
+        return l;
     }
 
 }

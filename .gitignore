@@ -42,3 +42,4 @@ build/
 db/*.db
 bin/*
 target/*
+ProjetoBackend/*
