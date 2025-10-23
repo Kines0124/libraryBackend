@@ -11,6 +11,7 @@ public class AssuntoGetDTO {
     private String descricao;
 
     public AssuntoGetDTO(){
+
     }
 
         public AssuntoGetDTO(Assunto assunto){

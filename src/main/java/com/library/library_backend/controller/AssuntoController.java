@@ -39,19 +39,6 @@ public List<AssuntoGetDTO> get() {
     return AssuntoGetDTO.convert(list);
 }
 
-@GetMapping("/{assunto}")
-public ResponseEntity<Assunto> getByAssunto (@PathVariable String assunto) {
-	ResponseEntity<Assunto> ret = ResponseEntity.notFound().build();
-	Optional<Assunto> search = repository.findByDescricao(assunto);
-	if (search.isPresent()){
-		Assunto item = search.get();
-		ret = ResponseEntity.ok(item);
-	}else{
-		System.out.println("Genero não cadastrado...");
-	}
-	return ret;
-}
-
 
 @PostMapping
 @Transactional
