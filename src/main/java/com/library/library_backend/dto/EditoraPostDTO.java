@@ -7,6 +7,7 @@ import com.library.library_backend.model.Editora;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+
 public class EditoraPostDTO {
 
     @NotBlank
@@ -48,44 +49,44 @@ public class EditoraPostDTO {
     @Length(max = 63)
     private String gerente;
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public String getNome() {
+        return nome;
     }
 
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
+    public String getCnpj() {
+        return cnpj;
     }
 
-    public void setLogradouro(String logradouro) {
-        this.logradouro = logradouro;
+    public String getLogradouro() {
+        return logradouro;
     }
 
-    public void setNumero(Integer numero) {
-        this.numero = numero;
+    public Integer getNumero() {
+        return numero;
     }
 
-    public void setBairro(String bairro) {
-        this.bairro = bairro;
+    public String getBairro() {
+        return bairro;
     }
 
-    public void setMunicipio(String municipio) {
-        this.municipio = municipio;
+    public String getMunicipio() {
+        return municipio;
     }
 
-    public void setUf(String uf) {
-        this.uf = uf;
+    public String getUf() {
+        return uf;
     }
 
-    public void setCep(String cep) {
-        this.cep = cep;
+    public String getCep() {
+        return cep;
     }
 
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
+    public String getTelefone() {
+        return telefone;
     }
 
-    public void setGerente(String gerente) {
-        this.gerente = gerente;
+    public String getGerente() {
+        return gerente;
     }
 
     public Editora convert(){

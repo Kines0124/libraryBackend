@@ -86,7 +86,7 @@ public class EditoraController {
 			}
 			if(!found){
 				body.update(item);
-				URI uri = uriBuilder.path("/livro/{id}").buildAndExpand(item.getId()).toUri();
+				URI uri = uriBuilder.path("/editora/{id}").buildAndExpand(item.getId()).toUri();
 				ret = ResponseEntity.created(uri).body(new EditoraGetDTO(item));
 			}
 		}else{

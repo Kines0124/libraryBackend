@@ -2,59 +2,51 @@ package com.library.library_backend.dto;
 
 import org.hibernate.validator.constraints.Length;
 
-import com.library.library_backend.model.Editora;
+import com.library.library_backend.model.Cliente;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-public class EditoraPutDTO {
 
+public class ClientePutDTO {
+    
     @NotBlank
-    @Length(max = 100)
-    private String nome;
-
-    @NotBlank
-    @Length(max = 18)
-    private String cnpj;
+    @Length(max = 63)
+    private String  nome;
 
     @NotBlank
     @Length(max = 63)
-    private String logradouro;
+    private String  logradouro;
 
     @NotNull
     private Integer numero;
 
     @NotBlank
     @Length(max = 63)
-    private String bairro;
+    private String  bairro;
 
     @NotBlank
     @Length(max = 31)
-    private String municipio;
+    private String  municipio;
 
     @NotBlank
     @Length(max = 2)
-    private String uf;
+    private String  uf;
 
     @NotBlank
     @Length(max = 15)
-    private String cep;
+    private String  cep;
 
     @NotBlank
     @Length(max = 31)
-    private String telefone;
+    private String  telefone;
 
     @NotBlank
-    @Length(max = 63)
-    private String gerente;
-
+    @Length(max = 31)
+    private String  cpf;
 
     public String getNome() {
         return nome;
-    }
-
-    public String getCnpj() {
-        return cnpj;
     }
 
     public String getLogradouro() {
@@ -85,20 +77,20 @@ public class EditoraPutDTO {
         return telefone;
     }
 
-    public String getGerente() {
-        return gerente;
+    public String getCpf() {
+        return cpf;
     }
 
-    public void update (Editora item){
-        item.setNome(this.nome);
-        item.setCnpj(this.cnpj);
-        item.setLogradouro(this.logradouro);
-        item.setNumero(this.numero);
-        item.setBairro(this.bairro);    
-        item.setMunicipio(this.municipio);
-        item.setUf(this.uf);
-        item.setCep(this.cep);
-        item.setTelefone(this.telefone);
-        item.setGerente(this.gerente);
-    }
+    public void update (Cliente cliente){
+
+        cliente.setNome(this.nome);
+        cliente.setLogradouro(this.logradouro);
+        cliente.setNumero(this.numero);
+        cliente.setBairro(this.bairro);
+        cliente.setMunicipio(this.municipio);
+        cliente.setUf(this.uf);
+        cliente.setCep(this.cep);
+        cliente.setTelefone(this.telefone);
+        cliente.setCpf(this.cpf);
+    }    
 }

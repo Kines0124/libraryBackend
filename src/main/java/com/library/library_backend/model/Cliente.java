@@ -1,43 +1,30 @@
 package com.library.library_backend.model;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+
 
 @Entity
-public class Editora {
-    @OneToMany(mappedBy = "editora")
-    @JsonBackReference
-    private Set<Livro> livros = new HashSet<>();
-
+public class Cliente {
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue( strategy = GenerationType.IDENTITY )
     private Integer id;
 
-    private String nome;
-    private String cnpj;
-    private String logradouro;
+    private String  nome;
+    private String  logradouro;
     private Integer numero;
-    private String bairro;
-    private String municipio;
-    private String uf;
-    private String cep;
-    private String telefone;
-    private String gerente;
+    private String  bairro;
+    private String  municipio;
+    private String  uf;
+    private String  cep;
+    private String  telefone;
+    private String  cpf;
 
     public Integer getId() {
         return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getNome() {
@@ -46,14 +33,6 @@ public class Editora {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public String getCnpj() {
-        return cnpj;
-    }
-    
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
     }
 
     public String getLogradouro() {
@@ -112,19 +91,11 @@ public class Editora {
         this.telefone = telefone;
     }
 
-    public String getGerente() {
-        return gerente;
+    public String getCpf() {
+        return cpf;
     }
 
-    public void setGerente(String gerente) {
-        this.gerente = gerente;
-    }
-
-    public Set<Livro> getLivros (){
-        return livros;
-    }
-
-    public void setLivros(Set<Livro> livros){
-        this.livros = livros;
-    }  
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    } 
 }
