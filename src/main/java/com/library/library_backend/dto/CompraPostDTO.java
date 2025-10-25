@@ -1,7 +1,5 @@
 package com.library.library_backend.dto;
 
-import java.sql.Date;
-
 import org.hibernate.validator.constraints.Length;
 
 import com.library.library_backend.model.Cliente;

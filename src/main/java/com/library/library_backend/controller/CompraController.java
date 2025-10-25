@@ -1,11 +1,9 @@
 package com.library.library_backend.controller;
 
-import java.lang.foreign.Linker.Option;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +15,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.library.library_backend.dto.CompraGetDTO;
 import com.library.library_backend.dto.CompraPostDTO;
-import com.library.library_backend.model.Cliente;
 import com.library.library_backend.model.Compra;
 import com.library.library_backend.repository.ClienteRepository;
 import com.library.library_backend.repository.CompraRepository;
@@ -69,8 +66,6 @@ public class CompraController {
             System.out.println("Compra ja existe...");
         }
         return ret;
-
-
     }
 
 }

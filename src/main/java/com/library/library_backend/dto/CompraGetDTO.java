@@ -1,12 +1,10 @@
 package com.library.library_backend.dto;
 
-import java.sql.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import com.library.library_backend.model.Cliente;
 import com.library.library_backend.model.Compra;
-import com.library.library_backend.model.Livro;
 
 public class CompraGetDTO {
 
