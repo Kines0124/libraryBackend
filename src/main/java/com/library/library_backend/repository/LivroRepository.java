@@ -12,6 +12,7 @@ import com.library.library_backend.model.Assunto;
 import com.library.library_backend.model.Editora;
 import com.library.library_backend.model.Livro;
 
+
 @Repository
 public interface LivroRepository extends JpaRepository <Livro, Integer>{
     Optional<Livro> findByTitulo(String titulo);

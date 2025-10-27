@@ -13,7 +13,7 @@ public class AssuntoGetDTO {
     public AssuntoGetDTO(){
     }
 
-        public AssuntoGetDTO(Assunto assunto){
+    public AssuntoGetDTO(Assunto assunto){
         this.id = assunto.getId();
         this.descricao = assunto.getDescricao();
     }
@@ -25,7 +25,6 @@ public class AssuntoGetDTO {
     public String getDescricao(){
         return descricao;
     }
-
 
     public static List<AssuntoGetDTO> convert(List<Assunto> lista){
         return lista.stream().map(AssuntoGetDTO::new).collect(Collectors.toList());

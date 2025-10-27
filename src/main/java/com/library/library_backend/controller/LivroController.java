@@ -47,13 +47,12 @@ public class LivroController {
         return LivroGetDTO.convert(list);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Livro> getById(@PathVariable Integer id) {
+    @GetMapping("/{titulo}")
+    public ResponseEntity<Livro> getByTitulo(@PathVariable String titulo) {
 		ResponseEntity<Livro> ret = ResponseEntity.notFound().build();
-		Optional<Livro> search = repository.findById(id);
+		Optional<Livro> search = repository.findByTitulo(titulo);
 		if (search.isPresent()) {
 			Livro item = search.get();
-			repository.delete(item);
 			ret = ResponseEntity.ok(item);
 		} else  {
 			System.out.println("Livro nao encontrado");

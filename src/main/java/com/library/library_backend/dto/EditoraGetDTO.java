@@ -19,6 +19,9 @@ public class EditoraGetDTO {
     private String telefone;
     private String gerente;
 
+    public EditoraGetDTO(){
+    }
+
     public EditoraGetDTO(Editora editora){
         this.id = editora.getId();
         this.nome = editora.getNome();

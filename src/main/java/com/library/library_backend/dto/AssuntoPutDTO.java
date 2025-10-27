@@ -8,16 +8,16 @@ import jakarta.validation.constraints.NotBlank;
 
 public class AssuntoPutDTO {
     
-@NotBlank
-@Length(max = 20)
-private String descricao;
+    @NotBlank
+    @Length(max = 20)
+    private String descricao;
 
-public String getDescricao(){
-    return descricao;
-}
+    public String getDescricao(){
+        return descricao;
+    }
 
-public void update (Assunto item){
-    item.setDescricao(this.descricao);
-}
+    public void update (Assunto item){
+        item.setDescricao(this.descricao);
+    }
 
 }

@@ -85,42 +85,6 @@ public class LivroPostDTO {
     public Float getPreco(){
         return preco;
     }
-
-    public void setTitulo(String titulo) {
-		this.titulo = titulo;
-	}
-
-    public void setAutor(String autor){
-        this.autor = autor;
-    }
-
-    public void setAssuntosId(List<Integer> assuntosId){
-        this.assuntosId = assuntosId;
-    }
-
-    public void setEditoraId(Integer editoraId){
-        this.editoraId = editoraId;
-    }
-
-    public void setEdicao(Short edicao){
-        this.edicao = edicao;
-    }
-
-    public void setAno(Short ano){
-        this.ano = ano;
-    }
-
-    public void setIsbn(String isbn){
-        this.isbn = isbn;
-    }
-
-    public void setQuantidade(Short quantidade){
-        this.quantidade = quantidade;
-    }
-
-    public void setPreco(Float preco){
-        this.preco = preco;
-    }
 		
 	public Livro convert( EditoraRepository editoraRepository, AssuntoRepository assuntoRepository ) {
         Livro livro = new Livro();
