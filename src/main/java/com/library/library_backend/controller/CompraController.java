@@ -20,7 +20,7 @@ import com.library.library_backend.model.Compra;
 import com.library.library_backend.repository.ClienteRepository;
 import com.library.library_backend.repository.CompraRepository;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import org.springframework.web.bind.annotation.RequestBody;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
@@ -58,7 +58,7 @@ public class CompraController {
     public ResponseEntity<CompraGetDTO> post (@RequestBody @Valid CompraPostDTO body, UriComponentsBuilder uriBuilder){
         ResponseEntity<CompraGetDTO> ret = ResponseEntity.unprocessableEntity().build();
         Compra item = body.convert(clienteRepository);
-        Optional<Compra> search = repository.findById(item.getId());
+        Optional<Compra> search = repository.findByNotaFiscal(item.getNotaFiscal());
         if(!search.isPresent()){
             repository.save(item);
             URI uri = uriBuilder.path("/compra/{id}").buildAndExpand(item.getId()).toUri();

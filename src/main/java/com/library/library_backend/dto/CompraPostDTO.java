@@ -7,24 +7,25 @@ import com.library.library_backend.model.Compra;
 import com.library.library_backend.repository.ClienteRepository;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.NotNull;
 
 public class CompraPostDTO {
     
-    @NotBlank
-    @Length(max = 15)
-    private String nota_fiscal;
+    private Float valor_pago = 0.0f;
 
     @NotBlank
-    @PastOrPresent
+    @Length(max = 15)
+    private String notaFiscal;
+
+    @NotBlank
     @Length(max = 10)
     private String data;
 
-    @NotBlank 
+    @NotNull 
     private Integer clienteId;
 
-    public String getNota_fiscal() {
-        return nota_fiscal;
+    public String getNotaFiscal() {
+        return notaFiscal;
     }
 
     public String getData() {
@@ -35,14 +36,18 @@ public class CompraPostDTO {
         return clienteId;
     }
 
+        public CompraPostDTO() {
+    }
+
     public Compra convert(ClienteRepository clienteRepository){
         Compra compra = new Compra();
         
-        compra.setNotaFiscal(this.nota_fiscal);
+        compra.setNotaFiscal(this.notaFiscal);
         compra.setData(this.data);
 
         Cliente cliente = clienteRepository.findById(this.clienteId).orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado"));
         compra.setCliente(cliente);
+        compra.setValorPago(valor_pago);
 
         return compra;
     }
