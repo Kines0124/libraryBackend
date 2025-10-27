@@ -64,7 +64,6 @@ public class Compra {
         return;
     }
     try {
-        // 💡 Usa o formatador para transformar String em Date
         this.data = DATE_FORMAT.parse(data);
     } catch (ParseException e) {
         throw new IllegalArgumentException("Formato de data inválido. Use o padrão yyyy-MM-dd.", e);

@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,14 +41,14 @@ public class CompraController {
     }
 
     @GetMapping("/{notaFiscal}")
-    public ResponseEntity<Compra> getNotaFiscal(@PathVariable String notaFiscal){
+    public ResponseEntity<Compra> getnotaFiscal(@PathVariable String notaFiscal){
         ResponseEntity<Compra> ret = ResponseEntity.notFound().build();
         Optional<Compra> search = repository.findByNotaFiscal(notaFiscal);
         if(search.isPresent()){
             Compra item = search.get();
             ret = ResponseEntity.ok(item);
         } else{
-            System.out.println("Nota Fiscal não encontrada");
+            System.out.println("nota Fiscal não encontrada");
         }
         return ret;
     }
@@ -64,6 +65,22 @@ public class CompraController {
             ret = ResponseEntity.created(uri).body(new CompraGetDTO(item));
         } else {
             System.out.println("Compra ja existe...");
+        }
+        return ret;
+    }
+
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity<?> delete(@PathVariable("id") Integer id){
+        ResponseEntity<Compra> ret = ResponseEntity.notFound().build();
+        Optional<Compra> search = repository.findById(id);
+        if(search.isPresent()){
+            Compra item = search.get();
+            repository.delete(item);
+            ret = ResponseEntity.ok().build();
+        }else{
+            System.out.println("Compra não encontrada");
         }
         return ret;
     }
