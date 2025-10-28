@@ -9,14 +9,14 @@ import com.library.library_backend.model.Compra;
 public class CompraGetDTO {
 
     private Integer id;
-    private String nota_fiscal;
+    private String notaFiscal;
     private String data;
     private Cliente cliente;
     private Float valor_pago;
 
     public CompraGetDTO(Compra compra) {
         this.id = compra.getId();
-        this.nota_fiscal = compra.getNotaFiscal();
+        this.notaFiscal = compra.getNotaFiscal();
         this.data = compra.getData();
         this.cliente = compra.getCliente();
         this.valor_pago = compra.getValorPago();
@@ -26,8 +26,8 @@ public class CompraGetDTO {
         return id;
     }
 
-    public String getNota_fiscal() {
-        return nota_fiscal;
+    public String getNotaFiscal() {
+        return notaFiscal;
     }
 
     public String getData() {

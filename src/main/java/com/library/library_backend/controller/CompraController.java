@@ -16,11 +16,16 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.library.library_backend.dto.CompraGetDTO;
 import com.library.library_backend.dto.CompraPostDTO;
+import com.library.library_backend.dto.ItemCompraPostDTO;
 import com.library.library_backend.model.Compra;
+import com.library.library_backend.model.CompraLivro;
+import com.library.library_backend.model.Livro;
 import com.library.library_backend.repository.ClienteRepository;
+import com.library.library_backend.repository.CompraLivroRepository;
 import com.library.library_backend.repository.CompraRepository;
+import com.library.library_backend.repository.LivroRepository;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import org.springframework.web.bind.annotation.RequestBody;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
@@ -28,6 +33,12 @@ import jakarta.validation.Valid;
 @RequestMapping("/compra")
 public class CompraController {
     
+    @Autowired
+    private LivroRepository livroRepository;
+
+    @Autowired
+    private CompraLivroRepository compraLivroRepository;
+
     @Autowired
     private CompraRepository repository;
 
@@ -56,17 +67,32 @@ public class CompraController {
     @PostMapping
     @Transactional
     public ResponseEntity<CompraGetDTO> post (@RequestBody @Valid CompraPostDTO body, UriComponentsBuilder uriBuilder){
-        ResponseEntity<CompraGetDTO> ret = ResponseEntity.unprocessableEntity().build();
-        Compra item = body.convert(clienteRepository);
-        Optional<Compra> search = repository.findById(item.getId());
-        if(!search.isPresent()){
-            repository.save(item);
-            URI uri = uriBuilder.path("/compra/{id}").buildAndExpand(item.getId()).toUri();
-            ret = ResponseEntity.created(uri).body(new CompraGetDTO(item));
-        } else {
-            System.out.println("Compra ja existe...");
+        Compra compra = body.convert(clienteRepository);
+        compra = repository.save(compra);
+
+        for (ItemCompraPostDTO itemDto : body.getItens()){
+            Livro livro = livroRepository.findById(itemDto.getLivroId())
+            .orElseThrow(() -> new IllegalArgumentException("Livro com ID " + itemDto.getLivroId() + "não encontrado"));
+
+            CompraLivro compraLivro = new CompraLivro();
+
+            compraLivro.setCompra(compra);
+            compraLivro.setLivro(livro);
+
+            compraLivro.setQuantidade(itemDto.getQuantidade());
+            compraLivro.setPreco_unitario(livro.getPreco());
+
+            compraLivroRepository.save(compraLivro);
+
         }
-        return ret;
+
+            Float valorTotal = compraLivroRepository.calcularValorTotal(compra.getId()).orElse(0.0f);
+
+            compra.setValorPago(valorTotal);
+            repository.save(compra);
+
+            URI uri = uriBuilder.path("/compra/{id}").buildAndExpand(compra.getId()).toUri();
+            return ResponseEntity.created(uri).body(new CompraGetDTO(compra));
     }
 
 
