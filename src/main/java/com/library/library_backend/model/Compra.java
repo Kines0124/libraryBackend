@@ -33,7 +33,7 @@ public class Compra {
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-    private Float   valor_pago;
+    private Float   valor_pago = 0.0f;
 
     @OneToMany(mappedBy = "compra")
     private List<CompraLivro> itens;

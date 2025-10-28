@@ -9,15 +9,12 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
+@Entity
 @Table(
     name = "compra_livro",
-    uniqueConstraints = @UniqueConstraint(
-        name = "relacao_compra_livro",
-        columnNames = {"compra_id", "livro_id"}
-    )
-)
-
-@Entity
+    uniqueConstraints = { @UniqueConstraint (
+        columnNames = { "compra_id", "livro_id" }) 
+    })
 public class CompraLivro {
 
     @Id
@@ -65,7 +62,6 @@ public class CompraLivro {
     public void setPreco_unitario(Float preco_unitario) {
         this.preco_unitario = preco_unitario;
     }
-
 
     
 }
