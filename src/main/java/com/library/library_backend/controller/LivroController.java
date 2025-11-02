@@ -94,7 +94,7 @@ public class LivroController {
                     }
                 }
                 if (!found) { 
-                    body.update(item);	
+                    body.update(item, editoraRepository, generoRepository);	
                     URI uri = uriBuilder.path("/livro/{id}").buildAndExpand(item.getId()).toUri(); 
                     ret = ResponseEntity.created(uri).body(new LivroGetDTO(item));
                 }
