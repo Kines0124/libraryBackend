@@ -21,7 +21,7 @@ public class LivroPutDTO {
 
     @NotNull
     @Size(min = 1)
-    private List<Integer> assuntosId;
+    private List<Integer> generoId;
 
     @NotNull
     private Integer editoraId;
@@ -54,8 +54,8 @@ public class LivroPutDTO {
         return autor;
     }
 
-    public List<Integer> getAssuntosId(){
-        return assuntosId;
+    public List<Integer> getGeneroId(){
+        return generoId;
     }
 
     public Integer getEditoraId(){

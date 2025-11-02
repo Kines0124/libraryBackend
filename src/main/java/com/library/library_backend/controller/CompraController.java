@@ -76,6 +76,7 @@ public class CompraController {
 
             CompraLivro compraLivro = new CompraLivro();
 
+            //Essa é a relação de unico livro por compra
             compraLivro.setCompra(compra);
             compraLivro.setLivro(livro);
 
@@ -96,18 +97,21 @@ public class CompraController {
     }
 
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{notaFiscal}")
     @Transactional
-    public ResponseEntity<?> delete(@PathVariable("id") Integer id){
+    public ResponseEntity<?> delete(@PathVariable("notaFiscal") String notaFiscal){
         ResponseEntity<Compra> ret = ResponseEntity.notFound().build();
-        Optional<Compra> search = repository.findById(id);
-        if(search.isPresent()){
-            Compra item = search.get();
-            repository.delete(item);
-            ret = ResponseEntity.ok().build();
-        }else{
-            System.out.println("Compra não encontrada");
+        List<Compra> comprasParaDeletar = repository.findAllByNotaFiscal(notaFiscal);
+        if(!comprasParaDeletar.isEmpty()){
+            for (Compra compra : comprasParaDeletar){
+                compraLivroRepository.deleteAllByCompraId(compra.getId());
+            }
+            repository.deleteAll(comprasParaDeletar);
+            return ResponseEntity.ok().build();
+        } else{
+            ret = ResponseEntity.notFound().build();
         }
+        
         return ret;
     }
 

@@ -25,8 +25,9 @@ public class CompraPostDTO {
     @Length(max = 10)
     private String data;
 
-    @NotNull 
-    private Integer clienteId;
+    @NotBlank
+    @Length(max = 31) 
+    private String clienteCpf;
 
     @Valid
     @Size(min = 1, message = "Minimo um item")
@@ -42,8 +43,8 @@ public class CompraPostDTO {
         return data;
     }
 
-    public Integer getClienteId() {
-        return clienteId;
+    public String getClienteCpf() {
+        return clienteCpf;
     }
 
     public List<ItemCompraPostDTO> getItens(){
@@ -63,7 +64,7 @@ public class CompraPostDTO {
         compra.setNotaFiscal(this.notaFiscal);
         compra.setData(this.data);
 
-        Cliente cliente = clienteRepository.findById(this.clienteId).orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado"));
+        Cliente cliente = clienteRepository.findByCpf(this.clienteCpf).orElseThrow(() -> new IllegalArgumentException("Cliente não encontrado"));
         compra.setCliente(cliente);
         compra.setValorPago(valor_pago);
 

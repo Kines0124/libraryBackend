@@ -24,12 +24,12 @@ public class Livro  {
 
     @ManyToMany
     @JoinTable(
-        name = "livro_assunto",
+        name = "livro_genero",
         joinColumns = @JoinColumn(name = "livro_id"),
-        inverseJoinColumns = @JoinColumn(name = "assunto_id")
+        inverseJoinColumns = @JoinColumn(name = "genero_id")
     )
     @JsonManagedReference
-    private List<Assunto> assuntos;
+    private List<Genero> genero;
 
     @ManyToOne
     @JoinColumn(name = "editora_id")
@@ -54,8 +54,8 @@ public class Livro  {
         return autor;
     }
 
-    public List<Assunto> getAssuntos(){
-        return assuntos;
+    public List<Genero> getGenero(){
+        return genero;
     }
 
     public Editora getEditora(){
@@ -94,8 +94,8 @@ public class Livro  {
         this.autor = autor;
     }
 
-    public void setAssuntos(List<Assunto> assuntos){
-        this.assuntos = assuntos;
+    public void setGenero(List<Genero> genero){
+        this.genero = genero;
     }
 
     public void setEditora(Editora editora){

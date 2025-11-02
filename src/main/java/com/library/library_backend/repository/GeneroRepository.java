@@ -5,10 +5,10 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.library.library_backend.model.Assunto;
+import com.library.library_backend.model.Genero;
 
 
 @Repository
-public interface AssuntoRepository extends JpaRepository <Assunto, Integer>{
-    Optional<Assunto> findByDescricao(String descricao);
+public interface GeneroRepository extends JpaRepository <Genero, Integer>{
+    Optional<Genero> findByDescricao(String descricao);
 } 

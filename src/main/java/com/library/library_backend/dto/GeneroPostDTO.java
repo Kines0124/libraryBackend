@@ -2,11 +2,11 @@ package com.library.library_backend.dto;
 
 import org.hibernate.validator.constraints.Length;
 
-import com.library.library_backend.model.Assunto;
+import com.library.library_backend.model.Genero;
 
 import jakarta.validation.constraints.NotBlank;
 
-public class AssuntoPostDTO {
+public class GeneroPostDTO {
 
 	@NotBlank
 	@Length(max = 20)
@@ -16,10 +16,10 @@ public class AssuntoPostDTO {
 		return descricao;
 	}
 		
-	public Assunto convert() {
-		Assunto assunto = new Assunto();
-		assunto.setDescricao(this.descricao);
-		return assunto;
+	public Genero convert() {
+		Genero genero = new Genero();
+		genero.setDescricao(this.descricao);
+		return genero;
 	}
 
 	

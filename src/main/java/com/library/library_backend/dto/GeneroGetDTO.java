@@ -3,17 +3,17 @@ package com.library.library_backend.dto;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.library.library_backend.model.Assunto;
+import com.library.library_backend.model.Genero;
 
-public class AssuntoGetDTO {
+public class GeneroGetDTO {
     
     private Integer id;
     private String descricao;
 
-    public AssuntoGetDTO(){
+    public GeneroGetDTO(){
     }
 
-    public AssuntoGetDTO(Assunto assunto){
+    public GeneroGetDTO(Genero assunto){
         this.id = assunto.getId();
         this.descricao = assunto.getDescricao();
     }
@@ -26,8 +26,8 @@ public class AssuntoGetDTO {
         return descricao;
     }
 
-    public static List<AssuntoGetDTO> convert(List<Assunto> lista){
-        return lista.stream().map(AssuntoGetDTO::new).collect(Collectors.toList());
+    public static List<GeneroGetDTO> convert(List<Genero> lista){
+        return lista.stream().map(GeneroGetDTO::new).collect(Collectors.toList());
     }
 
 }

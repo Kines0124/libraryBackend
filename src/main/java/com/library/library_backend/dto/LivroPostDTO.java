@@ -2,10 +2,10 @@ package com.library.library_backend.dto;
 
 import java.util.List;
 
-import com.library.library_backend.model.Assunto;
+import com.library.library_backend.model.Genero;
 import com.library.library_backend.model.Editora;
 import com.library.library_backend.model.Livro;
-import com.library.library_backend.repository.AssuntoRepository;
+import com.library.library_backend.repository.GeneroRepository;
 import com.library.library_backend.repository.EditoraRepository;
 
 import jakarta.validation.constraints.DecimalMin;
@@ -25,7 +25,7 @@ public class LivroPostDTO {
 
     @NotNull
     @Size(min = 1)
-    private List<Integer> assuntosId;
+    private List<Integer> generoId;
 
     @NotNull
     private Integer editoraId;
@@ -58,8 +58,8 @@ public class LivroPostDTO {
         return autor;
     }
 
-    public List<Integer> getAssuntosId(){
-        return assuntosId;
+    public List<Integer> getGeneroId(){
+        return generoId;
     }
 
     public Integer getEditoraId(){
@@ -86,7 +86,7 @@ public class LivroPostDTO {
         return preco;
     }
 		
-	public Livro convert( EditoraRepository editoraRepository, AssuntoRepository assuntoRepository ) {
+	public Livro convert( EditoraRepository editoraRepository, GeneroRepository assuntoRepository ) {
         Livro livro = new Livro();
         livro.setTitulo(this.titulo);
         livro.setAutor(this.autor);
@@ -100,11 +100,11 @@ public class LivroPostDTO {
             .orElseThrow(() -> new IllegalArgumentException("Editora não encontrada"));
         livro.setEditora(editora);
 
-        List<Assunto> assuntos = assuntoRepository.findAllById(this.assuntosId);
-        if (assuntos.size() != this.assuntosId.size()) {
-            throw new IllegalArgumentException("Um ou mais assuntos não encontrados");
+        List<Genero> genero = assuntoRepository.findAllById(this.generoId);
+        if (genero.size() != this.generoId.size()) {
+            throw new IllegalArgumentException("Um ou mais generos não encontrados");
         }
-        livro.setAssuntos(assuntos);
+        livro.setGenero(genero);
 
         return livro;
 	}
