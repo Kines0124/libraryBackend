@@ -68,11 +68,11 @@ public class ClienteController {
 		return ret;
 	}
 
-    @PutMapping("/{id}")
+    @PutMapping("/{cpf}")
 	@Transactional
-	public ResponseEntity<ClienteGetDTO> put(@PathVariable("id") int id, @RequestBody @Valid ClientePutDTO body, UriComponentsBuilder uriBuilder){
+	public ResponseEntity<ClienteGetDTO> put(@PathVariable("cpf") String cpf, @RequestBody @Valid ClientePutDTO body, UriComponentsBuilder uriBuilder){
 		ResponseEntity<ClienteGetDTO> ret =  ResponseEntity.notFound().build();
-		Optional<Cliente> search = repository.findById(id);
+		Optional<Cliente> search = repository.findByCpf(cpf);
 		if (search.isPresent()){
 			Cliente item = search.get();
 			boolean found = false;
@@ -81,13 +81,13 @@ public class ClienteController {
 				Cliente old = other.get();
 				if(item.getId() != old.getId()){
 					found = true;
-					System.out.println("Ja existe cliente com esse CPF...");
+					System.out.println("Erro na hora de atualziar o cliente com cpf: " + cpf);
 					ret = ResponseEntity.unprocessableEntity().build();
 				}
 			}
 			if(!found){
 				body.update(item);
-				URI uri = uriBuilder.path("/cliente/{id}").buildAndExpand(item.getId()).toUri();
+				URI uri = uriBuilder.path("/cliente/{cpf}").buildAndExpand(item.getCpf()).toUri();
 				ret = ResponseEntity.created(uri).body(new ClienteGetDTO(item));
 			}
 		}else{
@@ -96,11 +96,11 @@ public class ClienteController {
 		return ret;
 	}
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{cpf}")
 	@Transactional
-	public ResponseEntity<?> delete (@PathVariable("id") int id){
+	public ResponseEntity<?> delete (@PathVariable("cpf") String cpf){
 		ResponseEntity<Cliente> ret = ResponseEntity.notFound().build();
-		Optional<Cliente> search = repository.findById(id);
+		Optional<Cliente> search = repository.findByCpf(cpf);
 		if(search.isPresent()){
 			Cliente item = search.get();
 			repository.delete(item);

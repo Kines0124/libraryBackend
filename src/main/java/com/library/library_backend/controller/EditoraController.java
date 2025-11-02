@@ -38,15 +38,15 @@ public class EditoraController {
 		return list;
 	}
 	
-	@GetMapping ("/{nome}")
-	public ResponseEntity<Editora> getByNome(@PathVariable String nome){
+	@GetMapping ("/{cnpj}")
+	public ResponseEntity<Editora> getByNome(@PathVariable String cnpj){
 		ResponseEntity<Editora> ret = ResponseEntity.notFound().build();
-		Optional<Editora> search = repository.findByNome(nome);
+		Optional<Editora> search = repository.findByCnpj(cnpj);
 		if(search.isPresent()) {
 			Editora item = search.get();
 			ret = ResponseEntity.ok(item);
 		}else {
-			System.out.println("Não existe editora com o nome: " + nome + " no banco...");
+			System.out.println("Não existe editora com o nome: " + cnpj + " no banco...");
 		}
 		return ret;
 	}
@@ -67,11 +67,11 @@ public class EditoraController {
 		return ret;
 	}
 	
-	@PutMapping("/{id}")
+	@PutMapping("/{cnpj}")
 	@Transactional
-	public ResponseEntity<EditoraGetDTO> put(@PathVariable("id") int id, @RequestBody @Valid EditoraPutDTO body, UriComponentsBuilder uriBuilder){
+	public ResponseEntity<EditoraGetDTO> put(@PathVariable("cnpj") String cnpj, @RequestBody @Valid EditoraPutDTO body, UriComponentsBuilder uriBuilder){
 		ResponseEntity<EditoraGetDTO> ret =  ResponseEntity.notFound().build();
-		Optional<Editora> search = repository.findById(id);
+		Optional<Editora> search = repository.findByCnpj(cnpj);
 		if (search.isPresent()){
 			Editora item = search.get();
 			boolean found = false;
@@ -86,7 +86,7 @@ public class EditoraController {
 			}
 			if(!found){
 				body.update(item);
-				URI uri = uriBuilder.path("/editora/{id}").buildAndExpand(item.getId()).toUri();
+				URI uri = uriBuilder.path("/editora/{cnpj}").buildAndExpand(item.getCnpj()).toUri();
 				ret = ResponseEntity.created(uri).body(new EditoraGetDTO(item));
 			}
 		}else{
@@ -95,11 +95,11 @@ public class EditoraController {
 		return ret;
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/{cnpj}")
 	@Transactional
-	public ResponseEntity<?> delete (@PathVariable("id") int id){
+	public ResponseEntity<?> delete (@PathVariable("cnpj") String cnpj){
 		ResponseEntity<Editora> ret = ResponseEntity.notFound().build();
-		Optional<Editora> search = repository.findById(id);
+		Optional<Editora> search = repository.findByCnpj(cnpj);
 		if(search.isPresent()){
 			Editora item = search.get();
 			repository.delete(item);
