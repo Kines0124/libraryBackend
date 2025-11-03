@@ -16,6 +16,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.library.library_backend.dto.CompraGetDTO;
 import com.library.library_backend.dto.CompraPostDTO;
+import com.library.library_backend.dto.CompraTotalPessoaDTO;
 import com.library.library_backend.dto.ItemCompraPostDTO;
 import com.library.library_backend.model.Compra;
 import com.library.library_backend.model.CompraLivro;
@@ -76,7 +77,6 @@ public class CompraController {
 
             CompraLivro compraLivro = new CompraLivro();
 
-            //Essa é a relação de unico livro por compra
             compraLivro.setCompra(compra);
             compraLivro.setLivro(livro);
 
@@ -115,4 +115,10 @@ public class CompraController {
         return ret;
     }
 
+    @GetMapping("/total-por-cliente")
+    public List<CompraTotalPessoaDTO> getTotalGastoPorCliente() {
+
+        List<CompraTotalPessoaDTO> resultado = repository.totalGastoPorPessoa();
+        return resultado;
+    }
 }
