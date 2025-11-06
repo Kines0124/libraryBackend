@@ -21,7 +21,7 @@ import com.library.library_backend.dto.LivroPostDTO;
 import com.library.library_backend.dto.LivroPutDTO;
 import com.library.library_backend.dto.LivroTotalDTO;
 import com.library.library_backend.model.Livro;
-import com.library.library_backend.repository.AssuntoRepository;
+import com.library.library_backend.repository.GeneroRepository;
 import com.library.library_backend.repository.EditoraRepository;
 import com.library.library_backend.repository.LivroRepository;
 
@@ -39,7 +39,7 @@ public class LivroController {
     private EditoraRepository editoraRepository;
 
     @Autowired
-    private AssuntoRepository assuntoRepository;
+    private GeneroRepository generoRepository;
 
     @GetMapping
     public List<LivroGetDTO> get() {
@@ -65,7 +65,7 @@ public class LivroController {
     @Transactional
     public ResponseEntity<LivroGetDTO> post(@RequestBody @Valid LivroPostDTO body, UriComponentsBuilder uriBuilder) {
         ResponseEntity<LivroGetDTO> ret = ResponseEntity.unprocessableEntity().build();
-        Livro item = body.convert( editoraRepository, assuntoRepository );
+        Livro item = body.convert( editoraRepository, generoRepository );
         Optional<Livro> search = repository.findByTitulo(item.getTitulo());
         if (!search.isPresent()) { 
             repository.save(item); 
@@ -94,7 +94,7 @@ public class LivroController {
                     }
                 }
                 if (!found) { 
-                    body.update(item);	
+                    body.update(item, editoraRepository, generoRepository);	
                     URI uri = uriBuilder.path("/livro/{id}").buildAndExpand(item.getId()).toUri(); 
                     ret = ResponseEntity.created(uri).body(new LivroGetDTO(item));
                 }

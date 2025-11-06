@@ -12,14 +12,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 
 @Entity
-public class Assunto {
+public class Genero {
 
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String descricao;
 
-    @ManyToMany(mappedBy = "assuntos")
+    @ManyToMany(mappedBy = "genero")
     @JsonBackReference
     private Set<Livro> livros = new HashSet<>();
 

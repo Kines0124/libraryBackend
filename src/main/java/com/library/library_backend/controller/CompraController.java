@@ -16,6 +16,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.library.library_backend.dto.CompraGetDTO;
 import com.library.library_backend.dto.CompraPostDTO;
+import com.library.library_backend.dto.CompraTotalPessoaDTO;
 import com.library.library_backend.dto.ItemCompraPostDTO;
 import com.library.library_backend.model.Compra;
 import com.library.library_backend.model.CompraLivro;
@@ -96,19 +97,28 @@ public class CompraController {
     }
 
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{notaFiscal}")
     @Transactional
-    public ResponseEntity<?> delete(@PathVariable("id") Integer id){
+    public ResponseEntity<?> delete(@PathVariable("notaFiscal") String notaFiscal){
         ResponseEntity<Compra> ret = ResponseEntity.notFound().build();
-        Optional<Compra> search = repository.findById(id);
-        if(search.isPresent()){
-            Compra item = search.get();
-            repository.delete(item);
-            ret = ResponseEntity.ok().build();
-        }else{
-            System.out.println("Compra não encontrada");
+        List<Compra> comprasParaDeletar = repository.findAllByNotaFiscal(notaFiscal);
+        if(!comprasParaDeletar.isEmpty()){
+            for (Compra compra : comprasParaDeletar){
+                compraLivroRepository.deleteAllByCompraId(compra.getId());
+            }
+            repository.deleteAll(comprasParaDeletar);
+            return ResponseEntity.ok().build();
+        } else{
+            ret = ResponseEntity.notFound().build();
         }
+        
         return ret;
     }
 
+    @GetMapping("/total-por-cliente")
+    public List<CompraTotalPessoaDTO> getTotalGastoPorCliente() {
+
+        List<CompraTotalPessoaDTO> resultado = repository.totalGastoPorPessoa();
+        return resultado;
+    }
 }

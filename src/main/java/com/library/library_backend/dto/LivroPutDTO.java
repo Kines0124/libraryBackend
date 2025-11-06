@@ -2,7 +2,11 @@ package com.library.library_backend.dto;
 
 import java.util.List;
 
+import com.library.library_backend.model.Editora;
+import com.library.library_backend.model.Genero;
 import com.library.library_backend.model.Livro;
+import com.library.library_backend.repository.EditoraRepository;
+import com.library.library_backend.repository.GeneroRepository;
 
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Max;
@@ -21,7 +25,7 @@ public class LivroPutDTO {
 
     @NotNull
     @Size(min = 1)
-    private List<Integer> assuntosId;
+    private List<Integer> generoId;
 
     @NotNull
     private Integer editoraId;
@@ -54,8 +58,8 @@ public class LivroPutDTO {
         return autor;
     }
 
-    public List<Integer> getAssuntosId(){
-        return assuntosId;
+    public List<Integer> getGeneroId(){
+        return generoId;
     }
 
     public Integer getEditoraId(){
@@ -82,10 +86,26 @@ public class LivroPutDTO {
         return preco;
     }
 
-    public void update (Livro item){
+    public Livro update (Livro item, EditoraRepository editoraRepository, GeneroRepository generoRepository){
+        item.setTitulo(this.titulo); 
+        item.setAutor(this.autor);   
+        item.setIsbn(this.isbn);     
         item.setEdicao(this.edicao);
         item.setAno(this.ano);
         item.setQuantidade(this.quantidade);
         item.setPreco(this.preco);
+
+        Editora editora = editoraRepository.findById(this.editoraId)
+            .orElseThrow(() -> new IllegalArgumentException("Editora não encontrada!"));
+        item.setEditora(editora);
+
+        List<Genero> novosGeneros = generoId.stream()
+            .map(id -> generoRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Gênero com ID " + id + " não encontrado!")))
+            .toList();
+
+            item.setGenero(novosGeneros);
+
+            return item;
     }
 }

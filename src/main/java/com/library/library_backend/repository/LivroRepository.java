@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.library.library_backend.dto.LivroTotalDTO;
-import com.library.library_backend.model.Assunto;
+import com.library.library_backend.model.Genero;
 import com.library.library_backend.model.Editora;
 import com.library.library_backend.model.Livro;
 
@@ -17,7 +17,7 @@ import com.library.library_backend.model.Livro;
 public interface LivroRepository extends JpaRepository <Livro, Integer>{
     Optional<Livro> findByTitulo(String titulo);
     List<Livro>     findByAutor(String autor);
-    List<Livro>     findByAssuntos(Assunto assunto);
+    List<Livro>     findByGenero(Genero genero);
     List<Livro>     findByEditora(Editora editora);
     Optional<Livro> findByIsbn(String isbn);
 

@@ -3,7 +3,7 @@ package com.library.library_backend.dto;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.library.library_backend.model.Assunto;
+import com.library.library_backend.model.Genero;
 import com.library.library_backend.model.Editora;
 import com.library.library_backend.model.Livro;
 
@@ -12,7 +12,7 @@ public class LivroGetDTO {
     private Integer id;
     private String  titulo;
     private String  autor;
-    private List<Assunto> assuntos;
+    private List<Genero> genero;
     private Editora editora;
     private Short   edicao;
     private Short   ano;
@@ -27,7 +27,7 @@ public class LivroGetDTO {
         this.id         = livro.getId();
         this.titulo     = livro.getTitulo();
         this.autor      = livro.getAutor();
-        this.assuntos   = livro.getAssuntos();
+        this.genero     = livro.getGenero();
         this.editora    = livro.getEditora();
         this.edicao     = livro.getEdicao();
         this.ano        = livro.getAno();
@@ -48,8 +48,8 @@ public class LivroGetDTO {
         return autor;
     }
 
-    public List<Assunto> getAssuntos(){
-        return assuntos;
+    public List<Genero> getGenero(){
+        return genero;
     }
 
     public Editora getEditora(){
